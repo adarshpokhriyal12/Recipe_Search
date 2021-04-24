@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.recipe_search">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/recipedblogo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/recipedblogo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Recipe_Search">
+        <activity android:name=".Recipe_process"></activity>
+        <activity android:name=".Recipe_instructions" />
+        <activity android:name=".CONTACT_US.Contact_Us" />
+        <activity android:name=".FAQs.Faq_answers" />
+        <activity android:name=".FAQs.faqs_list" />
+        <activity android:name=".IngredientDetails" />
+        <activity android:name=".Recipe_ingredients" />
+        <activity android:name=".recipe_utensils" />
+        <activity android:name=".Recipe_Details" />
+        <activity android:name=".Category_Search" />
+        <activity android:name=".Nutrition_Search" />
+        <activity android:name=".Ingredient_Search" />
+        <activity android:name=".Cuisine_Search" />
+        <activity android:name=".Recipe_Searches" />
+        <activity android:name=".splash_screen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".popUp" />
+    </application>
+
+</manifest>

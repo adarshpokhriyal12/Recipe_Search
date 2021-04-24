@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Recipe_Searches">
+    <include layout="@layout/appbar"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="237dp"
+        android:id="@+id/recipe_rv"
+        />
+
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:fabCradleVerticalOffset="10dp"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="40dp"
+        android:backgroundTint="@color/cobalt_blue"
+        app:hideOnScroll="true"
+        >
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/bottomNavigationView"
+
+            app:menu="@menu/bottom_nav_bar"
+
+
+            android:layout_marginRight="16dp"
+
+            />
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:onClick="showPop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab"
+        android:src="@drawable/recipedblogo"
+        android:backgroundTint="@color/white"
+        app:layout_anchor="@id/bottomAppBar"
+
+        />
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
