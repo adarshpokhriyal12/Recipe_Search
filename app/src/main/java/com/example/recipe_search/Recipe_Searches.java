@@ -61,31 +61,31 @@ public class Recipe_Searches extends AppCompatActivity {
         RecipeRecyclerView = findViewById(R.id.recipe_rv);
         mData = new ArrayList<>();
 
-        mData.add(new RecipeData("Sweet Honey French Bread","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Sweet Honey French Bread","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
-        mData.add(new RecipeData("Southwestern Beef Brisket","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Southwestern Beef Brisket","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
-        mData.add(new RecipeData("Crushed Heirloom Potatoes","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Crushed Heirloom Potatoes","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
-        mData.add(new RecipeData("Heirloom Tomato Salad With Goat Cheese and Arugula","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Heirloom Tomato Salad With Goat Cheese and Arugula","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
-        mData.add(new RecipeData("Heirloom Tomato Sandwich With Basil Mayo","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Heirloom Tomato Sandwich With Basil Mayo","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
-        mData.add(new RecipeData("Heirloom Apple Pie","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Heirloom Apple Pie","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
-        mData.add(new RecipeData("Family Heirloom Pumpkin Chiffon Pie","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Family Heirloom Pumpkin Chiffon Pie","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
-        mData.add(new RecipeData("Creole \"style\" Chicken & Sausage Jambalaya","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Creole \"style\" Chicken & Sausage Jambalaya","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
-        mData.add(new RecipeData("Chicken, Wild Rice and Green Bean Soup","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Chicken, Wild Rice and Green Bean Soup","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
-        mData.add(new RecipeData("My Mom's Cranberry Sauce","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("My Mom's Cranberry Sauce","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
-        mData.add(new RecipeData("My Mom's Cranberry Sauce","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("My Mom's Cranberry Sauce","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
-        mData.add(new RecipeData("Chicken and Yellow Rice Soup","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Chicken and Yellow Rice Soup","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
-        mData.add(new RecipeData("Heirloom Tomato Panzanella","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Heirloom Tomato Panzanella","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
 
 
         // Adapter

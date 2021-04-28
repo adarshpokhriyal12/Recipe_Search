@@ -16,11 +16,13 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/search_img"
             android:layout_width="400dp"
             android:layout_height="200dp"
             android:src="@drawable/usine_main_activity"
             />
     <TextView
+        android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome"
@@ -30,6 +32,7 @@
         android:textStyle="bold"
         android:layout_marginTop="20dp"/>
     <LinearLayout
+        android:id="@+id/form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -67,10 +70,12 @@
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/submit"
         android:onClick="cuisineSearchSubmit"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Submit"
+        android:fontFamily="serif"
         app:cornerRadius="20dp"
         android:backgroundTint="@color/cobalt_blue"
 

@@ -13,6 +13,11 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +29,12 @@ public class Cuisine_Search extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle toggle;
     private Dialog dialog;
+    ImageView img;
+    TextView welcome;
+    Button submit;
+    LinearLayout linearLayout;
+
+    Animation anim1,anim2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +45,18 @@ public class Cuisine_Search extends AppCompatActivity {
         toolbar = findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        anim1 = AnimationUtils.loadAnimation(this,R.anim.img_drop_down);
+        anim2 = AnimationUtils.loadAnimation(this,R.anim.text_slide_up);
+
+        img = findViewById(R.id.search_img);
+        welcome = findViewById(R.id.welcome);
+        submit = findViewById(R.id.submit);
+        linearLayout = findViewById(R.id.form);
+        img.setAnimation(anim1);
+        welcome.setAnimation(anim2);
+        submit.setAnimation(anim2);
+        linearLayout.setAnimation(anim2);
 
         // Bottom Navigation View
         BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.bottomNavigationView);

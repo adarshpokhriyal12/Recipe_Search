@@ -1,14 +1,22 @@
 package com.example.recipe_search;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.app.ActionBar;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.recipe_search.CONTACT_US.Contact_Us;
@@ -18,18 +26,30 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Recipe_instructions extends AppCompatActivity {
     ImageView img;
     TextView tv;
+    private Toolbar toolbar;
+    private ActionBarDrawerToggle toggle;
+    private Dialog dialog;
+    Animation anim,anim2;
 
-    Animation anim;
+    ScrollView sv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_instructions);
 
+        // Action Bar
+        toolbar = findViewById(R.id.myToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+
         anim = AnimationUtils.loadAnimation(this,R.anim.img_drop_down);
+        anim2 = AnimationUtils.loadAnimation(this,R.anim.text_slide_up);
 
         img = findViewById(R.id.inst_img);
         tv = findViewById(R.id.inst);
-
+        sv = findViewById(R.id.scrollview);
+        sv.setAnimation(anim2);
         img.setAnimation(anim);
 
         String s = "1. Thinly slice tomatoes and arrange on salad plates in an overlapping fashion forming a ring alternating colors as you go.\n" +
@@ -94,7 +114,29 @@ public class Recipe_instructions extends AppCompatActivity {
                 return false;
             }
         });
-
-
     }
+    public void showPop(View v) {
+        TextView tvclose;
+        dialog = new Dialog(this);
+
+        dialog.setContentView(R.layout.popup);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.CENTER);
+        window.getAttributes().windowAnimations = R.style.DialogAnimation;
+
+        tvclose = (TextView) dialog.findViewById(R.id.tvclose);
+
+        tvclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelable(true);
+        window.setLayout(ActionBar.LayoutParams.WRAP_CONTENT,ActionBar.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+    }
+
 }

@@ -24,6 +24,7 @@
             android:src="@drawable/instructions" />
 
         <ScrollView
+            android:id="@+id/scrollview"
             android:layout_marginTop="15dp"
             android:layout_gravity="center"
             android:layout_marginBottom="75dp"
