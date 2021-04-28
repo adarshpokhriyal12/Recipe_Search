@@ -26,6 +26,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.recipe_search.CONTACT_US.Contact_Us;
+import com.example.recipe_search.FAQs.faqs_list;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -107,11 +109,12 @@ public class Recipe_Details extends AppCompatActivity{
                         //finish();
 
                         Toast.makeText(Recipe_Details.this, "FAQs Selected", Toast.LENGTH_SHORT).show();
-
+                        startActivity(new Intent(getApplicationContext(), faqs_list.class));
                         return true;
 
 
                     case R.id.contact:
+                        startActivity(new Intent(getApplicationContext(), Contact_Us.class));
                         //startActivity(new Intent(getApplicationContext(),ContactUs.class));
                         //overridePendingTransition(0,0);
                         //finish();
@@ -132,10 +135,10 @@ public class Recipe_Details extends AppCompatActivity{
 
         entries = new ArrayList<>();
 
-        entries.add(new PieEntry(250,"Fat"));
-        entries.add(new PieEntry(500,"Proteins"));
-        entries.add(new PieEntry(700,"Carbs"));
-        entries.add(new PieEntry(300,"Energy"));
+        entries.add(new PieEntry((float) 13.54,"Fat"));
+        entries.add(new PieEntry((float) 32.82,"Proteins"));
+        entries.add(new PieEntry((float) 201.53,"Carbs"));
+        entries.add(new PieEntry((float) 1079.53,"Energy"));
 
         //AddValuesToPIEENTRY();
 

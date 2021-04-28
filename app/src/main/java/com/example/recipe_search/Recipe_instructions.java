@@ -1,12 +1,19 @@
 package com.example.recipe_search;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.recipe_search.CONTACT_US.Contact_Us;
+import com.example.recipe_search.FAQs.faqs_list;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Recipe_instructions extends AppCompatActivity {
     ImageView img;
@@ -40,6 +47,54 @@ public class Recipe_instructions extends AppCompatActivity {
                 "7. Garnish with one half cherry tomato if desired.";
 
         tv.setText(s);
+        // Bottom Navigation View
+        BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        bnv.setSelectedItemId(R.id.search);
+
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.search:
+                        Intent i = new Intent(Recipe_instructions.this,MainActivity.class);
+                        //Toast.makeText(Category_Search.this, "How to use Selected", Toast.LENGTH_SHORT).show();
+                        startActivity(i);
+                        return true;
+
+                    case R.id.how_to_use:
+                        //startActivity(new Intent(getApplicationContext(),Search.class));
+                        //overridePendingTransition(0,0);
+                        //finish();
+                        //Toast.makeText(Category_Search.this, "How to use Selected", Toast.LENGTH_SHORT).show();
+                        return true;
+
+
+                    case R.id.faqs:
+                        //startActivity(new Intent(getApplicationContext(),Stats.class));
+                        //overridePendingTransition(0,0);
+                        //finish();
+
+                        //Toast.makeText(Category_Search.this, "FAQs Selected", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), faqs_list.class));
+                        return true;
+
+
+                    case R.id.contact:
+                        //startActivity(new Intent(getApplicationContext(),ContactUs.class));
+                        //overridePendingTransition(0,0);
+                        //finish();
+
+                        // Toast.makeText(Category_Search.this, "Contact Us Selected", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), Contact_Us.class));
+
+                        return true;
+
+
+                }
+                return false;
+            }
+        });
+
 
     }
 }

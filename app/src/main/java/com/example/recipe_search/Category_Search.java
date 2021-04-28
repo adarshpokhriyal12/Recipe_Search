@@ -16,6 +16,8 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.recipe_search.CONTACT_US.Contact_Us;
+import com.example.recipe_search.FAQs.faqs_list;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Category_Search extends AppCompatActivity {
@@ -63,7 +65,7 @@ public class Category_Search extends AppCompatActivity {
                         //finish();
 
                         Toast.makeText(Category_Search.this, "FAQs Selected", Toast.LENGTH_SHORT).show();
-
+                        startActivity(new Intent(getApplicationContext(), faqs_list.class));
                         return true;
 
 
@@ -73,6 +75,7 @@ public class Category_Search extends AppCompatActivity {
                         //finish();
 
                         Toast.makeText(Category_Search.this, "Contact Us Selected", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), Contact_Us.class));
 
                         return true;
 

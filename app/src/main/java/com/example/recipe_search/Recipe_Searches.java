@@ -20,6 +20,8 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.recipe_search.CONTACT_US.Contact_Us;
+import com.example.recipe_search.FAQs.faqs_list;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -59,35 +61,35 @@ public class Recipe_Searches extends AppCompatActivity {
         RecipeRecyclerView = findViewById(R.id.recipe_rv);
         mData = new ArrayList<>();
 
-        // push recipe data
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Sweet Honey French Bread","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Southwestern Beef Brisket","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Crushed Heirloom Potatoes","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Heirloom Tomato Salad With Goat Cheese and Arugula","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Heirloom Tomato Sandwich With Basil Mayo","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Heirloom Apple Pie","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Family Heirloom Pumpkin Chiffon Pie","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Creole \"style\" Chicken & Sausage Jambalaya","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Chicken, Wild Rice and Green Bean Soup","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("My Mom's Cranberry Sauce","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("My Mom's Cranberry Sauce","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Chicken and Yellow Rice Soup","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
-        mData.add(new RecipeData("Gol Gappa","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
+        mData.add(new RecipeData("Heirloom Tomato Panzanella","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.categories));
 
 
         // Adapter
+
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
 
@@ -124,11 +126,12 @@ public class Recipe_Searches extends AppCompatActivity {
                         //finish();
 
                         Toast.makeText(Recipe_Searches.this, "FAQs Selected", Toast.LENGTH_SHORT).show();
-
+                        startActivity(new Intent(getApplicationContext(), faqs_list.class));
                         return true;
 
 
                     case R.id.contact:
+                        startActivity(new Intent(getApplicationContext(), Contact_Us.class));
                         //startActivity(new Intent(getApplicationContext(),ContactUs.class));
                         //overridePendingTransition(0,0);
                         //finish();

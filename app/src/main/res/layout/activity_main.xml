@@ -53,7 +53,7 @@
                     android:layout_gravity="center"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/cuisines"
+                    android:src="@drawable/usine_main_activity"
                     />
             </LinearLayout>
             <TextView
@@ -92,7 +92,7 @@
                     android:layout_gravity="center"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/categories"/>
+                    android:src="@drawable/categories_main"/>
             </LinearLayout>
             <TextView
                 android:layout_gravity="center"
@@ -128,7 +128,7 @@
                     android:layout_gravity="center"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ingredients"/>
+                    android:src="@drawable/ingredients_main_activity"/>
 
 
             </LinearLayout>
@@ -166,7 +166,7 @@
                     android:layout_gravity="center"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/nutrients"/>
+                    android:src="@drawable/nutrients_main"/>
             </LinearLayout>
             <TextView
                 android:layout_gravity="center"

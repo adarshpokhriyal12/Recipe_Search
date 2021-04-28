@@ -26,6 +26,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.recipe_search.CONTACT_US.Contact_Us;
+import com.example.recipe_search.FAQs.faqs_list;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -104,11 +106,12 @@ public class IngredientDetails extends AppCompatActivity {
                         //finish();
 
                         Toast.makeText(IngredientDetails.this, "FAQs Selected", Toast.LENGTH_SHORT).show();
-
+                        startActivity(new Intent(getApplicationContext(), faqs_list.class));
                         return true;
 
 
                     case R.id.contact:
+                        startActivity(new Intent(getApplicationContext(), Contact_Us.class));
                         //startActivity(new Intent(getApplicationContext(),ContactUs.class));
                         //overridePendingTransition(0,0);
                         //finish();

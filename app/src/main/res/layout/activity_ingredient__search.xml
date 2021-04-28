@@ -16,9 +16,9 @@
 
         <ImageView
             android:layout_width="400dp"
-            android:layout_height="150dp"
-            android:src="@drawable/ingr_bg"
-         />
+            android:layout_height="200dp"
+            android:src="@drawable/ingredients_main_activity"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
