@@ -61,10 +61,11 @@
                 android:layout_marginTop="70dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="serif"
                 android:textSize="20dp"
                 android:text="CUISINE \n SEARCH"
+                android:textColor="@color/cobalt_blue"
 
-                android:textStyle="bold"
                 android:textAlignment="center"
                 android:gravity="center_horizontal" />
 
@@ -101,7 +102,8 @@
                 android:layout_height="wrap_content"
                 android:text="CATEGORY\nSEARCH"
                 android:textSize="20dp"
-                android:textStyle="bold"
+                android:fontFamily="serif"
+                android:textColor="@color/cobalt_blue"
                 android:textAlignment="center"
                 android:gravity="center_horizontal" />
         </androidx.cardview.widget.CardView>
@@ -139,7 +141,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text="INGREDIENT\nSEARCH"
-                android:textStyle="bold"
+                android:fontFamily="serif"
+                android:textColor="@color/cobalt_blue"
                 android:textAlignment="center"
                 android:gravity="center_horizontal" />
         </androidx.cardview.widget.CardView>
@@ -175,7 +178,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text="NUTRIENT\nSEARCH"
-                android:textStyle="bold"
+                android:fontFamily="serif"
+                android:textColor="@color/cobalt_blue"
                 android:textAlignment="center"
                 android:gravity="center_horizontal" />
         </androidx.cardview.widget.CardView>

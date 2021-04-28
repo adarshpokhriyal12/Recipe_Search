@@ -9,7 +9,9 @@
         android:roundIcon="@drawable/recipedblogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Recipe_Search">
-        <activity android:name=".Recipe_process"></activity>
+        <activity android:name=".Ingredient_Categories"></activity>
+        <activity android:name=".recipe_overview" />
+        <activity android:name=".Recipe_process" />
         <activity android:name=".Recipe_instructions" />
         <activity android:name=".CONTACT_US.Contact_Us" />
         <activity android:name=".FAQs.Faq_answers" />
@@ -32,6 +34,10 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".popUp" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

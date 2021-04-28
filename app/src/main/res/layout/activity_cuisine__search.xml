@@ -11,6 +11,7 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"
          android:gravity="center"
         android:orientation="vertical">
 
@@ -23,7 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome"
-        android:textColor="#0d6e6a"
+        android:fontFamily="serif"
+        android:textColor="@color/cobalt_blue"
         android:textSize="45dp"
         android:textStyle="bold"
         android:layout_marginTop="20dp"/>
@@ -65,14 +67,13 @@
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
     <com.google.android.material.button.MaterialButton
-
         android:onClick="cuisineSearchSubmit"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Submit"
-        app:cornerRadius="10dp"
-        android:backgroundTint="#0d6e6a"
-        android:textStyle="bold"
+        app:cornerRadius="20dp"
+        android:backgroundTint="@color/cobalt_blue"
+
         android:textColor="#fff">
 
     </com.google.android.material.button.MaterialButton>

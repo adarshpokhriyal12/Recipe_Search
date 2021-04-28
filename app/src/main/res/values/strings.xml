@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Recipe_Search</string>
-    <string-array name = "rangeSliderValues">
+    <string-array name="rangeSliderValues">
         <item>70</item>
         <item>120</item>
     </string-array>
-    <string-array name = "energyrangeSliderValues">
+    <string-array name="energyrangeSliderValues">
         <item>420</item>
         <item>730</item>
     </string-array>

@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:padding="5dp"
-    android:background="@color/popbg"
+
     xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView
         android:id="@+id/tv"
@@ -15,6 +15,7 @@
         android:gravity="center"
         android:textSize="20dp"
         android:fontFamily="cursive"
+        android:textColor="@color/cobalt_blue"
         />
 
     <com.makeramen.roundedimageview.RoundedImageView

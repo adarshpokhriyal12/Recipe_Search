@@ -1,11 +1,18 @@
 package com.example.recipe_search;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.app.ActionBar;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -19,22 +26,35 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Recipe_process extends AppCompatActivity {
     TextView tv;
     ImageView iv;
-    Animation anim;
+    Animation anim,anim2;
+    private Toolbar toolbar;
+    private ActionBarDrawerToggle toggle;
+    private Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_process);
+
+        toolbar = findViewById(R.id.myToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+
         tv = findViewById(R.id.process);
         iv = findViewById(R.id.process_img);
         anim = AnimationUtils.loadAnimation(this,R.anim.img_drop_down);
+        anim2 = AnimationUtils.loadAnimation(this,R.anim.text_slide_up);
+
+        tv.setAnimation(anim2);
 
         iv.setAnimation(anim);
-        String s = "Early Stage\n" +
-                "Add\n\n" +
-                "Middle Stage Processes\n" +
-                "Drizzle\n\n" +
-                "Late Stage\n" +
-                "No Late Stage Cooking Processes Found";
+        String s = "• Early Stage\n" +
+                " --  Add\n\n" +
+                "• Middle Stage \n" +
+                " -- Drizzle\n\n" +
+                "• Late Stage\n" +
+                " -- No Late Stage Cooking Processes Found";
 
         tv.setText(s);
         // Bottom Navigation View
@@ -85,5 +105,33 @@ public class Recipe_process extends AppCompatActivity {
             }
         });
 
+    }
+
+    // Pop Up : Recipe of the day
+    public void showPop(View v) {
+
+        TextView tvclose;
+
+        // Pop Up : Recipe of the Day
+        dialog = new Dialog(this);
+
+        dialog.setContentView(R.layout.popup);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.CENTER);
+        window.getAttributes().windowAnimations = R.style.DialogAnimation;
+
+        tvclose = (TextView) dialog.findViewById(R.id.tvclose);
+
+        tvclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelable(true);
+        window.setLayout(ActionBar.LayoutParams.WRAP_CONTENT,ActionBar.LayoutParams.WRAP_CONTENT);
+        dialog.show();
     }
 }

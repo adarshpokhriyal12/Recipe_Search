@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class Category_Search extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle toggle;
     private Dialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

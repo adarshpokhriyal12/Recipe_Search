@@ -13,20 +13,20 @@
         app:cardElevation="8dp"
         android:layout_gravity="center"
         android:padding="10dp">
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_gravity="right"
-            android:layout_height="match_parent"
-            android:textColor="#00204D"
-            android:textSize="20dp"
-            android:fontFamily="cursive"
-            android:background="#D3DBDE"
-            android:paddingTop="10dp"
             android:id="@+id/question"
-            android:text="Adarsh"
-            android:paddingBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="#F2F2F2"
+            android:fontFamily="serif"
             android:padding="10dp"
-            />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Adarsh"
+            android:textColor="#00204D"
+            android:textSize="20dp" />
     </androidx.cardview.widget.CardView>
 
 

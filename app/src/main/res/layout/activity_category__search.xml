@@ -11,6 +11,7 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -23,8 +24,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Welcome"
-            android:textColor="#0d6e6a"
+            android:textColor="@color/cobalt_blue"
             android:textSize="45dp"
+            android:fontFamily="serif"
             android:textStyle="bold"
             android:layout_marginTop="30dp"/>
         <LinearLayout
@@ -34,7 +36,7 @@
             android:layout_marginBottom="20dp"
             android:orientation="vertical">
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                               android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/used"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -64,8 +66,8 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="Submit"
-            app:cornerRadius="10dp"
-            android:backgroundTint="#0d6e6a"
+            app:cornerRadius="20dp"
+            android:backgroundTint="@color/cobalt_blue"
             android:textStyle="bold"
             android:textColor="#fff">
 

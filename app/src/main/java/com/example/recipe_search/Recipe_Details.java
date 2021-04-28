@@ -1,5 +1,6 @@
 package com.example.recipe_search;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,9 +31,13 @@ import android.widget.Toast;
 import com.example.recipe_search.CONTACT_US.Contact_Us;
 import com.example.recipe_search.FAQs.faqs_list;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,9 +60,15 @@ public class Recipe_Details extends AppCompatActivity{
     private ViewPager2 viewPager2;
     private Handler slideHandler = new Handler();
     Runnable sliderRunnable;
+    ImageView img;
 
     CardView cv1,cv2;
-    Animation anim1,anim2;
+    Animation anim1,anim2,anim3,anim4;
+
+    float[] yData = {13.54f,32.82f,201.53f,1079.53f};
+    String[] xData = {"Fat","Protein","Carbs","Energy"};
+
+
 
 
     @Override
@@ -72,11 +84,20 @@ public class Recipe_Details extends AppCompatActivity{
         anim1 = AnimationUtils.loadAnimation(this,R.anim.left_anim);
         anim2 = AnimationUtils.loadAnimation(this,R.anim.right_anim);
 
+        anim3 = AnimationUtils.loadAnimation(this,R.anim.img_drop_down);
+        anim4 = AnimationUtils.loadAnimation(this,R.anim.text_slide_up);
+
         cv1 = findViewById(R.id.cv1);
         cv2 = findViewById(R.id.cv2);
 
+        img = findViewById(R.id.recipe_img);
+
+
         cv1.setAnimation(anim1);
         cv2.setAnimation(anim2);
+        img.setAnimation(anim3);
+
+
 
         // utensils
         dialog2 = new Dialog(this);
@@ -133,12 +154,38 @@ public class Recipe_Details extends AppCompatActivity{
         fab_pop = findViewById(R.id.fab_pop);
         pieChart = findViewById(R.id.pieChart);
 
+        pieChart.setHoleRadius(30f);
+        pieChart.setTransparentCircleAlpha(25);
+        pieChart.setCenterText("Nutrient\nProfile");
+        pieChart.setCenterTextSize(10);
+        pieChart.setDrawEntryLabels(true);
+
+        pieChart.setAnimation(anim4);
+        fab_pop.setAnimation(anim4);
+
+        //addDataSet();
+
+       /*pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                int pos1 = e.toString().indexOf("(sum):");
+                String sales = e.toString().substring(pos1+7);
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+        */
+
+
         entries = new ArrayList<>();
 
-        entries.add(new PieEntry((float) 13.54,"Fat"));
-        entries.add(new PieEntry((float) 32.82,"Proteins"));
-        entries.add(new PieEntry((float) 201.53,"Carbs"));
-        entries.add(new PieEntry((float) 1079.53,"Energy"));
+        entries.add(new PieEntry((float) 40,"Fat (g)"));
+        entries.add(new PieEntry((float) 34,"Protein (g)"));
+        entries.add(new PieEntry((float) 46,"Carbs (g)"));
+        entries.add(new PieEntry((float) 600,"Energy (KCal)"));
 
         //AddValuesToPIEENTRY();
 
@@ -148,19 +195,43 @@ public class Recipe_Details extends AppCompatActivity{
 
         pieData = new PieData(pieDataSet);
 
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieDataSet.getValueTextColor(Color.BLACK);
-        pieDataSet.setValueTextSize(16f);
+         // add colors
 
-        pieChart.setEntryLabelTextSize(10f);
-        pieChart.setEntryLabelColor(Color.WHITE);
+        ArrayList<Integer> colors = new ArrayList<>();
+        //colors.add(Color.GRAY);
+        colors.add(Color.BLUE);
+        colors.add(Color.RED);
+        colors.add(Color.GREEN);
+        colors.add(Color.parseColor("#FFA500"));
+        //colors.add(Color.CYAN);
+        pieDataSet.setColors(colors);
+
+        pieDataSet.setValueTextColor(Color.WHITE);
+        pieDataSet.setSliceSpace(2);
+        pieDataSet.setValueTextSize(10f);
+
+       // pieChart.setEntryLabelTextSize(10f);
+        pieChart.setHoleRadius(25f);
+
+        pieChart.setDrawEntryLabels(false);
+        pieChart.setRotationAngle(45);
+
+       // pieChart.setEntryLabelColor(Color.WHITE);
 
         pieChart.getLegend().setTextColor(Color.BLACK);
+        pieChart.getLegend().setTextSize(16f);
+
+        //pieChart.getLegend().setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+        pieChart.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        //pieChart.getLegend().setOrientation(Legend.LegendOrientation.VERTICAL);
 
         pieChart.setData(pieData);
         pieChart.setCenterText("Nutrient Profile");
         pieChart.getDescription().setEnabled(false);
-        pieChart.animateY(1500);
+        pieChart.animateY(1000);
+
+        //pieChart.setTransparentCircleAlpha(25);
+
 
 
         fab_pop.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +244,7 @@ public class Recipe_Details extends AppCompatActivity{
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.recipe_overview:
+                                startActivity(new Intent(Recipe_Details.this,recipe_overview.class));
                                 Toast.makeText(Recipe_Details.this, "Recipe Overview", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.recipe_ingredients:
@@ -185,8 +257,9 @@ public class Recipe_Details extends AppCompatActivity{
                                 Toast.makeText(Recipe_Details.this, "Process", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.recipe_utensils:
+                                startActivity(new Intent(Recipe_Details.this,recipe_utensils.class));
                                 Toast.makeText(Recipe_Details.this, "Utensils", Toast.LENGTH_SHORT).show();
-                                showUtensils();
+                                //showUtensils();
                                 return true;
                             case R.id.recipe_instructions:
                                 startActivity(new Intent(Recipe_Details.this,Recipe_instructions.class));
@@ -203,66 +276,68 @@ public class Recipe_Details extends AppCompatActivity{
 
     }
 
+
     public void showUtensils()
     {
-        TextView tvclose;
-
-        dialog2.setContentView(R.layout.activity_recipe_utensils);
-        tvclose = (TextView) dialog2.findViewById(R.id.tvclose);
-
-
-        viewPager2 = dialog2.findViewById(R.id.viewPagerImageSlider);
-
-        List<SliderItem> slideritems = new ArrayList<>();
-
-        slideritems.add(new SliderItem(R.drawable.ctgr_bg,"Burger"));
-        slideritems.add(new SliderItem(R.drawable.cuisines,"Hello"));
-        slideritems.add(new SliderItem(R.drawable.ingr_bg,"Chicken"));
-        slideritems.add(new SliderItem(R.drawable.nut_bg,"Donut"));
-        slideritems.add(new SliderItem(R.drawable.nutrients,"GolGappa"));
-
-        viewPager2.setAdapter(new SliderAdapter(slideritems,viewPager2));
-
-        viewPager2.setClipToPadding(false);
-        viewPager2.setClipChildren(false);
-
-        viewPager2.setOffscreenPageLimit(3);
-        viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-
-        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
-        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
-        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float r = 1 - Math.abs(position);
-                page.setScaleY(0.85f+r*0.15f);
-
-            }
-        });
-        viewPager2.setPageTransformer(compositePageTransformer);
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                slideHandler.removeCallbacks(sliderRunnable);
-                slideHandler.postDelayed(sliderRunnable,3000); //slide duration 3 seconds
-            }
-        });
-
-        tvclose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog2.dismiss();
-            }
-        });
-        dialog2.show();
-
-        sliderRunnable = new Runnable() {
-            @Override
-            public void run() {
-                viewPager2.setCurrentItem(viewPager2.getCurrentItem()+1);
-            }
-        };
+//        TextView tvclose;
+//
+//        dialog2.setContentView(R.layout.activity_recipe_utensils);
+//        tvclose = (TextView) dialog2.findViewById(R.id.tvclose);
+//
+//
+//        //viewPager2 = dialog2.findViewById(R.id.viewPagerImageSlider);
+//
+//        List<SliderItem> slideritems = new ArrayList<>();
+//
+//        slideritems.add(new SliderItem(R.drawable.ctgr_bg,"Burger"));
+//        slideritems.add(new SliderItem(R.drawable.cuisines,"Hello"));
+//        slideritems.add(new SliderItem(R.drawable.ingr_bg,"Chicken"));
+//        slideritems.add(new SliderItem(R.drawable.nut_bg,"Donut"));
+//        slideritems.add(new SliderItem(R.drawable.nutrients,"GolGappa"));
+//
+//        viewPager2.setAdapter(new SliderAdapter(slideritems,viewPager2));
+//
+//        viewPager2.setClipToPadding(false);
+//        viewPager2.setClipChildren(false);
+//
+//        viewPager2.setOffscreenPageLimit(3);
+//        viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+//
+//        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+//        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
+//        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
+//            @Override
+//            public void transformPage(@NonNull View page, float position) {
+//                float r = 1 - Math.abs(position);
+//                page.setScaleY(0.85f+r*0.15f);
+//
+//            }
+//        });
+//        viewPager2.setPageTransformer(compositePageTransformer);
+//        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+//            @Override
+//            public void onPageSelected(int position) {
+//                super.onPageSelected(position);
+//                slideHandler.removeCallbacks(sliderRunnable);
+//                slideHandler.postDelayed(sliderRunnable,3000); //slide duration 3 seconds
+//            }
+//        });
+//
+//        tvclose.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog2.dismiss();
+//            }
+//        });
+//        dialog2.show();
+//
+//        sliderRunnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                viewPager2.setCurrentItem(viewPager2.getCurrentItem()+1);
+//            }
+//        };
+        startActivity(new Intent(this,recipe_utensils.class));
     }
 
     // Pop Up : Recipe of the day
