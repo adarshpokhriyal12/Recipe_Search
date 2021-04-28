@@ -3,9 +3,14 @@ package com.example.recipe_search;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -19,6 +24,7 @@ public class Recipe_instructions extends AppCompatActivity {
     ImageView img;
     TextView tv;
 
+    private Dialog dialog;
     Animation anim;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,5 +102,32 @@ public class Recipe_instructions extends AppCompatActivity {
         });
 
 
+    }
+    // Pop Up : Recipe of the day
+    public void showPop(View v) {
+
+        TextView tvclose;
+
+        // Pop Up : Recipe of the Day
+        dialog = new Dialog(this);
+
+        dialog.setContentView(R.layout.popup);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.CENTER);
+        window.getAttributes().windowAnimations = R.style.DialogAnimation;
+
+        tvclose = (TextView) dialog.findViewById(R.id.tvclose);
+
+        tvclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelable(true);
+        window.setLayout(ActionBar.LayoutParams.WRAP_CONTENT,ActionBar.LayoutParams.WRAP_CONTENT);
+        dialog.show();
     }
 }
