@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Recipe_Search</string>
+    <string name="app_name">RecipeDB</string>
     <string-array name="rangeSliderValues">
         <item>70</item>
         <item>120</item>
