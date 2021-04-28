@@ -47,20 +47,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_gravity="center_vertical|center_horizontal">
+                android:layout_gravity="center_horizontal">
                 <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/cuisines"
                     />
             </LinearLayout>
             <TextView
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="70dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:text="CUSINE"
+                android:textSize="20dp"
+                android:text="CUISINE \n SEARCH"
 
                 android:textStyle="bold"
                 android:textAlignment="center"
@@ -84,19 +86,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_gravity="center_vertical|center_horizontal">
+                android:layout_gravity="center_horizontal">
                 <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/categories"/>
             </LinearLayout>
             <TextView
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="70dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CATEGORY"
-                android:textSize="16dp"
+                android:text="CATEGORY\nSEARCH"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:gravity="center_horizontal" />
@@ -118,21 +122,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_gravity="center_vertical|center_horizontal">
+                android:layout_gravity="center_horizontal">
                 <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/ingredients"/>
 
 
             </LinearLayout>
             <TextView
-                android:layout_marginTop="50dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="70dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:text="INGREDIENT"
+                android:textSize="20dp"
+                android:text="INGREDIENT\nSEARCH"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:gravity="center_horizontal" />
@@ -154,19 +160,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_gravity="center_vertical|center_horizontal">
+                android:layout_gravity="center_horizontal">
                 <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/nutrients"/>
             </LinearLayout>
             <TextView
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="70dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:text="NUTRIENTS"
+                android:textSize="20dp"
+                android:text="NUTRIENT\nSEARCH"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:gravity="center_horizontal" />

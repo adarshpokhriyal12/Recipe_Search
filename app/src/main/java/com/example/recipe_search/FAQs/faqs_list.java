@@ -76,18 +76,18 @@ public class faqs_list extends AppCompatActivity {
         answer.add("The Dietary Style of each recipe was decided based on the constraints followed by each of these categories. For this version the ingredient categories dish and bakery were refrained from the dietary style determination.");
 
         question.add("What are the categories ingredients are sorted into?");
-        answer.add("The ingredients were manually curated into the 23 categories given below:\n" +
-                " • Additive  • Bakery\n" +
-                " • Beverage  • Beverage-Alcoholic\n" +
-                " • Cereal    • Condiment\n" +
-                " • Dairy     • Dish\n" +
-                " • Fish      • Essential Oil\n" +
-                " • Fruit     • Fungi\n " +
-                " • Herb      • Legume\n" +
-                " • Maize     • Meat\n" +
-                " • Plant     • Nuts and Seeds\n" +
-                " • Seafood   • Plant Derivative\n" +
-                " • Spice     • Vegetable\n");
+        answer.add("The ingredients were manually curated into the 23 categories given below:\n\n" +
+                "• Additive\n"+  "• Bakery\n" +
+                "• Beverage\n"+ "• Beverage-Alcoholic\n" +
+                "• Cereal\n"+    "• Condiment\n" +
+                "• Dairy\n"+     "• Dish\n" +
+                "• Fish\n"+      "• Essential Oil\n" +
+                "• Fruit\n"+     "• Fungi\n" +
+                "• Herb\n"+      "• Legume\n" +
+                "• Maize\n"+     "• Meat\n" +
+                "• Plant\n"+     "• Nuts and Seeds\n" +
+                "• Seafood\n"+   "• Plant Derivative\n" +
+                "• Spice\n"+     "• Vegetable\n");
 
         question.add("How does the integration of RecipeDB with DietRx and FlavorDB work?");
         answer.add("For each ingredient found in recipes of the database, a ‘Generic Ingredient Name’ was assigned manually to account for degeneracy due to derivative products. For each generic ingredient the FlavorDB ID and DietRx ID were manually labelled. These external resources provide details of the ‘Flavor Profile’ and ‘Health Impacts’ of the ingredient, respectively");
