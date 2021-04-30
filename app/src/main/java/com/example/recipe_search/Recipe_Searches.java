@@ -159,6 +159,16 @@ public class Recipe_Searches extends AppCompatActivity {
         window.getAttributes().windowAnimations = R.style.DialogAnimation;
 
         tvclose = (TextView) dialog.findViewById(R.id.tvclose);
+        TextView name;
+        name = (TextView) dialog.findViewById(R.id.recipe_name);
+
+        name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Recipe_Searches.this,Recipe_Details.class);
+                startActivity(i);
+            }
+        });
 
         tvclose.setOnClickListener(new View.OnClickListener() {
             @Override
