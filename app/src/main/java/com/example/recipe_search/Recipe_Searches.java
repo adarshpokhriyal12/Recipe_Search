@@ -24,6 +24,10 @@ import com.example.recipe_search.CONTACT_US.Contact_Us;
 import com.example.recipe_search.FAQs.faqs_list;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +36,7 @@ public class Recipe_Searches extends AppCompatActivity {
     RecyclerView RecipeRecyclerView;
     RecipeAdapter recipeAdapter;
     List<RecipeData> mData;
+    JSONArray array;
 
 
     private  RecipeAdapter.RecyclerViewClickListener listener;
@@ -48,9 +53,8 @@ public class Recipe_Searches extends AppCompatActivity {
         toolbar = findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
-
-
+        Bundle b = getIntent().getExtras();
+        String recs=b.getString("Array");
 
         // on item click of Recipe
 
@@ -60,34 +64,24 @@ public class Recipe_Searches extends AppCompatActivity {
 
         RecipeRecyclerView = findViewById(R.id.recipe_rv);
         mData = new ArrayList<>();
-
-        mData.add(new RecipeData("Sweet Honey French Bread","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-        mData.add(new RecipeData("Southwestern Beef Brisket","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-        mData.add(new RecipeData("Crushed Heirloom Potatoes","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-        mData.add(new RecipeData("Heirloom Tomato Salad With Goat Cheese and Arugula","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-        mData.add(new RecipeData("Heirloom Tomato Sandwich With Basil Mayo","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-        mData.add(new RecipeData("Heirloom Apple Pie","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-        mData.add(new RecipeData("Family Heirloom Pumpkin Chiffon Pie","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-        mData.add(new RecipeData("Creole \"style\" Chicken & Sausage Jambalaya","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-        mData.add(new RecipeData("Chicken, Wild Rice and Green Bean Soup","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-        mData.add(new RecipeData("My Mom's Cranberry Sauce","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-        mData.add(new RecipeData("My Mom's Cranberry Sauce","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-        mData.add(new RecipeData("Chicken and Yellow Rice Soup","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-        mData.add(new RecipeData("Heirloom Tomato Panzanella","It is very tasty.It is very tasty.It is very tasty.It is very tasty","2",R.drawable.recipes_item_img));
-
-
+        try {
+             array = new JSONArray(recs);
+            Toast.makeText(Recipe_Searches.this,"response :"+ array.toString(),Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.length(); ++i) {
+            JSONObject rec = null;
+            try {
+                rec = array.getJSONObject(i);
+                String loc = rec.getString("recipe_title");
+                String image = rec.getString("img_url");
+                mData.add(new RecipeData(loc,image));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //new DownloadImageFromInternet(im).execute(rec.getString("img_url").toString());
+        }
         // Adapter
 
 
@@ -176,6 +170,14 @@ public class Recipe_Searches extends AppCompatActivity {
             @Override
             public void onClick(View v, int position) {
                 Intent intent = new Intent(Recipe_Searches.this,Recipe_Details.class);
+                Bundle b = new Bundle();
+                try {
+                    JSONObject a = array.getJSONObject(position);
+                    b.putString("Object",a.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                intent.putExtras(b);
                 //intent.putExtra("rollno",list.get(position).getRoll());
                 startActivity(intent);
 

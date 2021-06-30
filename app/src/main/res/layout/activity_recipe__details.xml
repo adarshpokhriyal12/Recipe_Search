@@ -62,6 +62,7 @@
                             android:fontFamily="@font/aclonica"
                             android:textColor="@color/cobalt_blue"
                             android:text="REGION "
+                            android:id="@+id/region"
                             android:textSize="20dp"
                              />
 
@@ -91,6 +92,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/aclonica"
+                            android:id="@+id/country"
                             android:textColor="@color/cobalt_blue"
                             android:text="COUNTRY"
                             android:textSize="20dp"

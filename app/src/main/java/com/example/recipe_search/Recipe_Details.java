@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.recipe_search.CONTACT_US.Contact_Us;
 import com.example.recipe_search.FAQs.faqs_list;
 import com.github.mikephil.charting.charts.PieChart;
@@ -41,7 +44,12 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,15 +69,16 @@ public class Recipe_Details extends AppCompatActivity{
     private Handler slideHandler = new Handler();
     Runnable sliderRunnable;
     ImageView img;
-
     CardView cv1,cv2;
+    TextView region,country;
     Animation anim1,anim2,anim3,anim4;
+    Context context;
 
     float[] yData = {13.54f,32.82f,201.53f,1079.53f};
     String[] xData = {"Fat","Protein","Carbs","Energy"};
 
 
-
+    JSONObject object;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,16 +100,55 @@ public class Recipe_Details extends AppCompatActivity{
         cv2 = findViewById(R.id.cv2);
 
         img = findViewById(R.id.recipe_img);
+        region = findViewById(R.id.region);
+        country = findViewById(R.id.country);
 
 
         cv1.setAnimation(anim1);
         cv2.setAnimation(anim2);
-        img.setAnimation(anim3);
+        //img.setAnimation(anim3);
 
 
 
         // utensils
         dialog2 = new Dialog(this);
+
+        //recive Object
+        Bundle b = getIntent().getExtras();
+        String obj=b.getString("Object");
+        //setting region and subregion
+        try {
+            object = new JSONObject(obj);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String r = null;
+        try {
+            r = object.getString("region");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String sbr = null;
+        try {
+            sbr = object.getString("sub_region");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        region.setText(r);
+        country.setText(sbr);
+        //set image
+        String image ="";
+        try {
+            image = object.getString("img_url");
+            Toast.makeText(Recipe_Details.this,"response :"+ image,Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Picasso.with(getApplicationContext()).load(image).fit().into(img);
+        //Glide.with(context).load(image).into(img);
+        //Glide.with(this.context).load(image).diskCacheStrategy(DiskCacheStrategy.ALL).into(img);
+
+        //Toast.makeText(Recipe_Details.this,"response :"+ obj,Toast.LENGTH_SHORT).show();
 
         // Bottom Navigation View
         BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.bottomNavigationView);

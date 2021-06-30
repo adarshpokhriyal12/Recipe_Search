@@ -2,12 +2,12 @@ package com.example.recipe_search;
 
 public class RecipeData {
     String Title,Content,Serving;
-    int recipeImg;
+    String recipeImg;
 
-    public RecipeData(String title, String content, String serving, int recipeImg) {
+    public RecipeData(String title, String recipeImg /*String content, String serving,*/ ) {
         this.Title = title;
-        this.Content = content;
-        this.Serving = serving;
+        //this.Content = content;
+        //this.Serving = serving;
         this.recipeImg = recipeImg;
     }
 
@@ -15,15 +15,15 @@ public class RecipeData {
         return Title;
     }
 
-    public String getContent() {
+    /*public String getContent() {
         return Content;
     }
 
     public String getServing() {
         return Serving;
-    }
+    }*/
 
-    public int getRecipeImg() {
+    public String getRecipeImg() {
         return recipeImg;
     }
 
@@ -31,15 +31,15 @@ public class RecipeData {
         Title = title;
     }
 
-    public void setContent(String content) {
+   /* public void setContent(String content) {
         Content = content;
     }
 
     public void setServing(String serving) {
         Serving = serving;
-    }
+    }*/
 
-    public void setRecipeImg(int recipeImg) {
+    public void setRecipeImg(String recipeImg) {
         this.recipeImg = recipeImg;
     }
 }
