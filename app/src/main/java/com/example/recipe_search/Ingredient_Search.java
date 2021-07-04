@@ -115,8 +115,8 @@ public class Ingredient_Search extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if(access_token.isEmpty()) {
-                    String location = error.networkResponse.headers.get("Location");
-                    Toast.makeText(Ingredient_Search.this,error.toString()+" redirect to "+location,Toast.LENGTH_SHORT).show();
+                    //String location = error.networkResponse.headers.get("Location");
+                    Toast.makeText(Ingredient_Search.this,error.toString(),Toast.LENGTH_SHORT).show();
                     //Toast.makeText(Ingredient_Search.this, "Token " + refresh_token, Toast.LENGTH_SHORT).show();
                     //tv3.setText(refresh_token);
                 }
