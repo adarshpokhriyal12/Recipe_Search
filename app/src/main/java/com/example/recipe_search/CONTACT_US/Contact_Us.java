@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.example.recipe_search.FAQs.faqs_list;
 import com.example.recipe_search.MainActivity;
 import com.example.recipe_search.R;
+import com.example.recipe_search.Recipe_Details;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.w3c.dom.Text;
@@ -144,6 +145,16 @@ public class Contact_Us extends AppCompatActivity {
         window.getAttributes().windowAnimations = R.style.DialogAnimation;
 
         tvclose = (TextView) dialog.findViewById(R.id.tvclose);
+        TextView name;
+        name = (TextView) dialog.findViewById(R.id.recipe_name);
+
+        name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Contact_Us.this, Recipe_Details.class);
+                startActivity(i);
+            }
+        });
 
         tvclose.setOnClickListener(new View.OnClickListener() {
             @Override

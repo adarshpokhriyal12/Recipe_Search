@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.recipe_search.CONTACT_US.Contact_Us;
 import com.example.recipe_search.MainActivity;
 import com.example.recipe_search.R;
+import com.example.recipe_search.Recipe_Details;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
@@ -125,6 +126,16 @@ public class Faq_answers extends AppCompatActivity {
         window.getAttributes().windowAnimations = R.style.DialogAnimation;
 
         tvclose = (TextView) dialog.findViewById(R.id.tvclose);
+        TextView name;
+        name = (TextView) dialog.findViewById(R.id.recipe_name);
+
+        name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Faq_answers.this, Recipe_Details.class);
+                startActivity(i);
+            }
+        });
 
         tvclose.setOnClickListener(new View.OnClickListener() {
             @Override

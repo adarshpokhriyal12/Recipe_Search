@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tvclose;
 
+
         // Pop Up : Recipe of the Day
         dialog = new Dialog(this);
 
@@ -136,6 +137,16 @@ public class MainActivity extends AppCompatActivity {
         window.getAttributes().windowAnimations = R.style.DialogAnimation;
 
         tvclose = (TextView) dialog.findViewById(R.id.tvclose);
+        TextView name;
+        name = (TextView) dialog.findViewById(R.id.recipe_name);
+
+        name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,Recipe_Details.class);
+                startActivity(i);
+            }
+        });
 
         tvclose.setOnClickListener(new View.OnClickListener() {
             @Override

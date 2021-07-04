@@ -60,18 +60,17 @@
             android:scaleType="fitXY"
             android:layout_gravity="center"
         />
-        <TextView
-            android:id="@id/recipe_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Healthy Oats"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/cobalt_blue"
-            android:textSize="30dp"
-            android:fontFamily="cursive"
+            <TextView
+                android:id="@+id/recipe_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Healthy Oats"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/cobalt_blue"
+                android:textSize="30dp"
+                android:fontFamily="cursive" />
 
-            />
     </LinearLayout>
 
 
