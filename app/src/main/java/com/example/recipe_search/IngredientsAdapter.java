@@ -42,8 +42,8 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         // adding animation
 
         holder.name.setText(mData.get(position).getName());
-        holder.quantity.setText(mData.get(position).getQuantity());
-        holder.img.setImageResource(mData.get(position).getIngr_image());
+        //holder.quantity.setText(mData.get(position).getQuantity());
+        //holder.img.setImageResource(mData.get(position).getIngr_image());
 
         // holder.img.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_transition_animation));
 

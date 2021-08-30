@@ -119,7 +119,7 @@ public class Recipe_Searches extends AppCompatActivity {
                         //overridePendingTransition(0,0);
                         //finish();
 
-                        Toast.makeText(Recipe_Searches.this, "FAQs Selected", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Recipe_Searches.this, "FAQs Selected", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), faqs_list.class));
                         return true;
 

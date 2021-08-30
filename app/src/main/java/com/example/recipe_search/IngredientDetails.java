@@ -28,6 +28,13 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.recipe_search.ALL_FORMS.AllFormAdapter;
 import com.example.recipe_search.CONTACT_US.Contact_Us;
 import com.example.recipe_search.FAQs.faqs_list;
@@ -39,10 +46,15 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class IngredientDetails extends AppCompatActivity {
     PieChart pieChart ;
@@ -53,8 +65,7 @@ public class IngredientDetails extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle toggle;
     private Dialog dialog1,dialog2,dialog3;
-
-
+    JSONObject object;
     // All forms adapter
     RecyclerView formRecycler;
     List<String> AllForms;
@@ -71,6 +82,7 @@ public class IngredientDetails extends AppCompatActivity {
 
     ImageView img;
 
+    JSONArray array;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +114,20 @@ public class IngredientDetails extends AppCompatActivity {
         cv1.setAnimation(anim1);
         cv2.setAnimation(anim2);
 
+        Bundle b = getIntent().getExtras();
+        String obj=b.getString("Array_ing");
+
+        try {
+            array = new JSONArray(obj);
+            //Toast.makeText(Recipe_Searches.this,"response :"+ array.toString(),Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            object = array.getJSONObject(0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         // Bottom Navigation View
         BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
@@ -166,10 +192,30 @@ public class IngredientDetails extends AppCompatActivity {
 
         entries = new ArrayList<>();
 
-        entries.add(new PieEntry((float) 40,"Fat (g)"));
-        entries.add(new PieEntry((float) 34,"Protein (g)"));
-        entries.add(new PieEntry((float) 46,"Carbs (g)"));
-        entries.add(new PieEntry((float) 600,"Energy (KCal)"));
+        try {
+            float fat = (float) object.getDouble("fat");
+            entries.add(new PieEntry((float) fat,"Fat (g)"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            float fat = (float) object.getDouble("protein");
+            entries.add(new PieEntry((float) fat,"Protein (g)"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            float fat = (float) object.getDouble("carbohydrate");
+            entries.add(new PieEntry((float) fat,"Carbs (g)"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            float fat = (float) object.getDouble("energy");
+            entries.add(new PieEntry((float) fat,"Energy (KCal)"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         //AddValuesToPIEENTRY();
 
@@ -365,7 +411,19 @@ public class IngredientDetails extends AppCompatActivity {
         formRecycler.setHasFixedSize(true);
         formRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
         AllForms = new ArrayList<>();
-        AllForms.add("Bottled Water");
+
+        for (int i = 0; i < array.length(); ++i) {
+            JSONObject rec = null;
+            try {
+                rec = array.getJSONObject(i);
+                String loc = rec.getString("ingredient");
+                AllForms.add(loc);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //new DownloadImageFromInternet(im).execute(rec.getString("img_url").toString());
+        }
+        /*AllForms.add("Bottled Water");
         AllForms.add("Divided Water");
         AllForms.add("Acidulated Water");
         AllForms.add("Blanched Water");
@@ -380,7 +438,7 @@ public class IngredientDetails extends AppCompatActivity {
         AllForms.add("Called Water");
         AllForms.add("Canned Crushed Water");
         AllForms.add("Chilled Chilled Water");
-        AllForms.add("Chopped Roasted Drained Water");
+        AllForms.add("Chopped Roasted Drained Water");*/
         adapter = new AllFormAdapter(AllForms);
         formRecycler.setAdapter(adapter);
 

@@ -341,9 +341,14 @@ public class Recipe_Details extends AppCompatActivity{
                                 //Toast.makeText(Recipe_Details.this, "Recipe Overview", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.recipe_ingredients:
+                                Intent int_ing = new Intent(Recipe_Details.this,Recipe_ingredients.class);
                                 Toast.makeText(Recipe_Details.this, "Ingredients", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(Recipe_Details.this,Recipe_ingredients.class);
-                                startActivity(i);
+                                try {
+                                    int_ing.putExtra("ingredient",object.getString("ingredients"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                startActivity(int_ing);
                                 return true;
                             case R.id.recipe_process:
                                 Intent intent =new Intent(Recipe_Details.this,Recipe_process.class);

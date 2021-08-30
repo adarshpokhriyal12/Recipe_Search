@@ -58,19 +58,19 @@ public class Recipe_ingredients extends AppCompatActivity {
         mData = new ArrayList<>();
 
 
-        mData.add(new IngredientsData("Water","3/4 cup",R.drawable.ingredients_main_activity));
-        mData.add(new IngredientsData("Honey","2 teaspoons",R.drawable.ingredients_main_activity));
-        mData.add(new IngredientsData("Olive Oil","2 teaspoons",R.drawable.ingredients_main_activity));
-        mData.add(new IngredientsData("Salt","2/3 teaspoons",R.drawable.ingredients_main_activity));
-        mData.add(new IngredientsData("White Sugar","2/3 teaspoons",R.drawable.ingredients_main_activity));
-        mData.add(new IngredientsData("Bread Flour","2 cups",R.drawable.ingredients_main_activity));
-        mData.add(new IngredientsData("Active Yeast","1.5 teaspoons",R.drawable.ingredients_main_activity));
-        mData.add(new IngredientsData("Tomato","4",R.drawable.ingredients_main_activity));
-        mData.add(new IngredientsData("Lemon","1",R.drawable.ingredients_main_activity));
-        mData.add(new IngredientsData("Balsamic Vinegar","1-4 tablespoons",R.drawable.ingredients_main_activity));
-        mData.add(new IngredientsData("Arugula","4 cups",R.drawable.ingredients_main_activity));
-        mData.add(new IngredientsData("Extra Virgin Olive Oil","1/2 cup",R.drawable.ingredients_main_activity));
-        mData.add(new IngredientsData("Pistachio","1/2 cup",R.drawable.ingredients_main_activity));
+        mData.add(new IngredientsData("Water"));
+        mData.add(new IngredientsData("Honey"));
+        mData.add(new IngredientsData("Olive Oil"));
+        mData.add(new IngredientsData("Salt"));
+        mData.add(new IngredientsData("White Sugar"));
+        mData.add(new IngredientsData("Bread Flour"));
+        mData.add(new IngredientsData("Active Yeast"));
+        mData.add(new IngredientsData("Tomato"));
+        mData.add(new IngredientsData("Lemon"));
+        mData.add(new IngredientsData("Balsamic Vinegar"));
+        mData.add(new IngredientsData("Arugula"));
+        mData.add(new IngredientsData("Extra Virgin Olive Oil"));
+        mData.add(new IngredientsData("Pistachio"));
         // Adapter
 
 
