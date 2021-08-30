@@ -196,14 +196,22 @@ public class Ingredient_Search extends AppCompatActivity {
     }
     private void getRecipeInfo(String access_token, String u,String nu,Intent i) {
         RequestQueue r = Volley.newRequestQueue(Ingredient_Search.this);
-        Toast.makeText(this,"In getRecipeInfo() : "+u+" "+nu,Toast.LENGTH_SHORT).show();
-        String recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?ingredientNotUsed="+nu+"&ingredientUsed="+u;
+        //Toast.makeText(this,"In getRecipeInfo() : "+u+" "+nu,Toast.LENGTH_SHORT).show();
+        String recipe_url = "";
+        if(u.equals("") && nu.equals(""))
+            Toast.makeText(Ingredient_Search.this,"Please Enter Something",Toast.LENGTH_SHORT).show();
+        else if(!u.equals("") && nu.equals(""))
+            recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?ingredientUsed="+u;
+        else if(!nu.equals("") && u.equals(""))
+            recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?ingredientNotUsed="+nu;
+        else
+         recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?ingredientNotUsed="+nu+"&ingredientUsed="+u;
         StringRequest sr = new StringRequest(Request.Method.GET, recipe_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONArray recs = new JSONArray(response);
-                    //Toast.makeText(Ingredient_Search.this,"response :"+ recs.toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Ingredient_Search.this,"response :"+ recs.toString(),Toast.LENGTH_SHORT).show();
                     Bundle b = new Bundle();
                     b.putString("Array",recs.toString());
                     i.putExtras(b);

@@ -21,9 +21,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.recipe_search.CONTACT_US.Contact_Us;
 import com.example.recipe_search.FAQs.faqs_list;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Nutrition_Search extends AppCompatActivity {
     private Toolbar toolbar;
@@ -36,6 +50,15 @@ public class Nutrition_Search extends AppCompatActivity {
     LinearLayout linearLayout;
 
     Animation anim1,anim2;
+    //Token
+    String url = "https://cosylab.iiitd.edu.in/api/auth/realms/bootadmin/protocol/openid-connect/token";
+    String uname = "nitika";
+    String pass = "nitika_cosylab";
+    String client_id = "app-ims";
+    String grant_type = "password";
+    String scope = "openid";
+    String ingUsed="",ingNotUsed="";
+    String access_token ="",refresh_token="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +82,49 @@ public class Nutrition_Search extends AppCompatActivity {
         submit.setAnimation(anim2);
         linearLayout.setAnimation(anim2);
 
+        //Token
+        RequestQueue rq = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
 
+                try{
+                    JSONObject obj = new JSONObject(response);
+                    access_token = obj.getString("access_token");
+                    refresh_token = obj.getString("refresh_token");
+                    //getRecipeInfo(access_token);
+                    //Toast.makeText(Ingredient_Search.this,"Access Token generated " +access_token ,Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if(access_token.isEmpty()) {
+                    String location = error.networkResponse.headers.get("Location");
+                    Toast.makeText(Nutrition_Search.this,error.toString()+" redirect to "+location,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Ingredient_Search.this, "Token " + refresh_token, Toast.LENGTH_SHORT).show();
+                    //tv3.setText(refresh_token);
+                }
+                //Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams()
+            {
+                Map<String,String> params = new HashMap<String,String>();
+                params.put("username",uname);
+                params.put("password",pass);
+                params.put("grant_type",grant_type);
+                params.put("client_id",client_id);
+                params.put("scope",scope);
+                return params;
+            }
+        };
+        rq.add(stringRequest);
 
 
 
@@ -113,6 +178,48 @@ public class Nutrition_Search extends AppCompatActivity {
 
     }
 
+    private void getRecipeInfo(String access_token, String u,String nu,Intent i) {
+        RequestQueue r = Volley.newRequestQueue(Nutrition_Search.this);
+        Toast.makeText(this,"In getRecipeInfo() : "+u+" "+nu,Toast.LENGTH_SHORT).show();
+        String recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?ingredientNotUsed="+nu+"&ingredientUsed="+u;
+        StringRequest sr = new StringRequest(Request.Method.GET, recipe_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray recs = new JSONArray(response);
+                    Toast.makeText(Nutrition_Search.this,"response :"+ recs.toString(),Toast.LENGTH_SHORT).show();
+                    Bundle b = new Bundle();
+                    b.putString("Array",recs.toString());
+                    i.putExtras(b);
+                    startActivity(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Nutrition_Search.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Authorization"," Bearer "+access_token);
+                //Toast.makeText(MainActivity.this,"Authorization :"+params.get("Authorization"),Toast.LENGTH_SHORT).show();
+//              new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                  @Override
+//                  public void run() {
+//                      Toast toast = Toast.makeText(MainActivity.this, "Authorization :"+params.get("Authorization"), Toast.LENGTH_SHORT);
+//                      toast.show();
+//                  }
+//              });
+                return params;
+            }
+        };
+        r.add(sr);
+    }
     // Pop Up : Recipe of the day
     public void showPop(View v) {
         TextView tvclose;
