@@ -56,8 +56,14 @@ public class recipe_overview extends AppCompatActivity {
 
         cuisine = findViewById(R.id.overview_cusine);
         time = findViewById(R.id.overview_time);
-        cuisine.setText("European >> French >> French");
-        time.setText("Cooking time - 45 minutes, Preparation  Time - 15 minutes");
+        Bundle b = getIntent().getExtras();
+        String res = b.getString("overview");
+        String[] arrOfStr = res.split("&&", 10);
+
+        for (String a : arrOfStr)
+            System.out.println(a);
+        cuisine.setText(arrOfStr[0]);
+        time.setText(arrOfStr[1]);
         // Bottom Navigation View
         BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bnv.setSelectedItemId(R.id.search);

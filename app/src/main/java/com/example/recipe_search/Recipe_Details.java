@@ -230,10 +230,30 @@ public class Recipe_Details extends AppCompatActivity{
 
         entries = new ArrayList<>();
 
-        entries.add(new PieEntry((float) 40,"Fat (g)"));
-        entries.add(new PieEntry((float) 34,"Protein (g)"));
-        entries.add(new PieEntry((float) 46,"Carbs (g)"));
-        entries.add(new PieEntry((float) 600,"Energy (KCal)"));
+        try {
+            float fat = (float) object.getDouble("fat");
+            entries.add(new PieEntry((float) fat,"Fat (g)"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            float fat = (float) object.getDouble("protein");
+            entries.add(new PieEntry((float) fat,"Protein (g)"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            float fat = (float) object.getDouble("carbohydratebydifference");
+            entries.add(new PieEntry((float) fat,"Carbs (g)"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            float fat = (float) object.getDouble("energykcal");
+            entries.add(new PieEntry((float) fat,"Energy (KCal)"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         //AddValuesToPIEENTRY();
 
@@ -292,8 +312,33 @@ public class Recipe_Details extends AppCompatActivity{
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.recipe_overview:
-                                startActivity(new Intent(Recipe_Details.this,recipe_overview.class));
-                                Toast.makeText(Recipe_Details.this, "Recipe Overview", Toast.LENGTH_SHORT).show();
+                                Intent int_over = new Intent(Recipe_Details.this,recipe_overview.class);
+                                String cusine="";
+                                try {
+                                     cusine = object.getString("sub_region");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    cusine = cusine +" >> " + object.getString("continent");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                String time = "";
+                                try {
+                                    time = "Cook Time" + object.getString("cook_time") + " Minutes";
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    time = time + "\n" + object.getString("prep_time") + " Minutes";
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                String over = cusine + "&&" + time;
+                                int_over.putExtra("overview",over);
+                                startActivity(int_over);
+                                //Toast.makeText(Recipe_Details.this, "Recipe Overview", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.recipe_ingredients:
                                 Toast.makeText(Recipe_Details.this, "Ingredients", Toast.LENGTH_SHORT).show();
@@ -301,13 +346,24 @@ public class Recipe_Details extends AppCompatActivity{
                                 startActivity(i);
                                 return true;
                             case R.id.recipe_process:
-                                startActivity(new Intent(Recipe_Details.this,Recipe_process.class));
-                                Toast.makeText(Recipe_Details.this, "Process", Toast.LENGTH_SHORT).show();
+                                Intent intent =new Intent(Recipe_Details.this,Recipe_process.class);
+                                try {
+                                    intent.putExtra("Process",object.getString("processes"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                startActivity(intent);
+                                //Toast.makeText(Recipe_Details.this, "Process", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.recipe_utensils:
-                                startActivity(new Intent(Recipe_Details.this,recipe_utensils.class));
-                                Toast.makeText(Recipe_Details.this, "Utensils", Toast.LENGTH_SHORT).show();
-                                //showUtensils();
+                                Intent intent_ut = new Intent(Recipe_Details.this,recipe_utensils.class);
+                                try {
+                                    intent_ut.putExtra("utensils",object.getString("utensils"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                startActivity(intent_ut);
+                                //Toast.makeText(Recipe_Details.this, "Utensils", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.recipe_instructions:
                                 startActivity(new Intent(Recipe_Details.this,Recipe_instructions.class));

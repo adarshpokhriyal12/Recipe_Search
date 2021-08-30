@@ -49,14 +49,24 @@ public class Recipe_process extends AppCompatActivity {
         tv.setAnimation(anim2);
 
         iv.setAnimation(anim);
-        String s = "• Early Stage\n" +
-                " --  Add\n\n" +
-                "• Middle Stage \n" +
-                " -- Drizzle\n\n" +
-                "• Late Stage\n" +
-                " -- No Late Stage Cooking Processes Found";
-
-        tv.setText(s);
+        Bundle b = getIntent().getExtras();
+        String res = b.getString("processes");
+        String s="",f="";
+        for(int i=0;i<res.length();i++)
+        {
+            if(res.charAt(i)=='|')
+            {
+                f = f +"• " + s +"\n";
+                s = "";
+                i++;
+            }
+            else
+            {
+                s = s + res.charAt(i);
+            }
+        }
+        f = f +"• " + s +"\n";
+        tv.setText(f);
         // Bottom Navigation View
         BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bnv.setSelectedItemId(R.id.search);

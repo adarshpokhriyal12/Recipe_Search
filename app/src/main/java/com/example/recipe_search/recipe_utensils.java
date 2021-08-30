@@ -58,10 +58,24 @@ public class recipe_utensils extends AppCompatActivity {
 
 
         uten = findViewById(R.id.utensils);
-        uten.setText("• Pan\n" +
-                     "• Bowl\n" +
-                     "• Pot\n" +
-                     "• Oven");
+        Bundle b = getIntent().getExtras();
+        String res = b.getString("utensils");
+        String f="",s="";
+        for(int i=0;i<res.length();i++)
+        {
+            if(res.charAt(i)=='|')
+            {
+                f = f +"• " + s +"\n";
+                s = "";
+                i++;
+            }
+            else
+            {
+                s = s + res.charAt(i);
+            }
+        }
+        f = f +"• " + s +"\n";
+        uten.setText(f);
 
 
         // Bottom Navigation View
