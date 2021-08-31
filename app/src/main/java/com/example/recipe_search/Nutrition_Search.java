@@ -31,12 +31,14 @@ import com.android.volley.toolbox.Volley;
 import com.example.recipe_search.CONTACT_US.Contact_Us;
 import com.example.recipe_search.FAQs.faqs_list;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.slider.RangeSlider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Nutrition_Search extends AppCompatActivity {
@@ -50,6 +52,7 @@ public class Nutrition_Search extends AppCompatActivity {
     LinearLayout linearLayout;
 
     Animation anim1,anim2;
+    RangeSlider energy,carbs,fats,protiens;
     //Token
     String url = "https://cosylab.iiitd.edu.in/api/auth/realms/bootadmin/protocol/openid-connect/token";
     String uname = "nitika";
@@ -57,7 +60,6 @@ public class Nutrition_Search extends AppCompatActivity {
     String client_id = "app-ims";
     String grant_type = "password";
     String scope = "openid";
-    String ingUsed="",ingNotUsed="";
     String access_token ="",refresh_token="";
 
     @Override
@@ -73,6 +75,10 @@ public class Nutrition_Search extends AppCompatActivity {
         anim1 = AnimationUtils.loadAnimation(this,R.anim.img_drop_down);
         anim2 = AnimationUtils.loadAnimation(this,R.anim.text_slide_up);
 
+        energy = findViewById(R.id.energy);
+        carbs = findViewById(R.id.carbohydrates);
+        fats = findViewById(R.id.fat);
+        protiens = findViewById(R.id.protiens);
         img = findViewById(R.id.search_img);
         welcome = findViewById(R.id.welcome);
         submit = findViewById(R.id.submit);
@@ -175,13 +181,27 @@ public class Nutrition_Search extends AppCompatActivity {
                 return false;
             }
         });
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Float> fat = fats.getValues();
+                List<Float> pro = protiens.getValues();
+                List<Float> carb = carbs.getValues();
+                List<Float> eng = energy.getValues();
+                //Toast.makeText(Nutrition_Search.this,"values:"+fat.get(0)+fat.get(1),Toast.LENGTH_SHORT).show();
+                if(access_token == null)
+                    Toast.makeText(Nutrition_Search.this,"expire",Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Nutrition_Search.this,Recipe_Searches.class);
+                getRecipeInfo(access_token,fat,pro,carb,eng,i);
+
+            }
+        });
 
     }
-
-    private void getRecipeInfo(String access_token, String u,String nu,Intent i) {
+    private void getRecipeInfo(String access_token, List fat,List pro,List carb,List eng,Intent i) {
         RequestQueue r = Volley.newRequestQueue(Nutrition_Search.this);
-        Toast.makeText(this,"In getRecipeInfo() : "+u+" "+nu,Toast.LENGTH_SHORT).show();
-        String recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?ingredientNotUsed="+nu+"&ingredientUsed="+u;
+        //Toast.makeText(this,"In getRecipeInfo() : "+u+" "+nu,Toast.LENGTH_SHORT).show();
+        String recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?carbohydrates="+carb.get(0)+"%3"+carb.get(1)+"energy="+eng.get(0)+"%3"+eng.get(1)+"fat="+fat.get(0)+"%3"+fat.get(1)+"protein="+pro.get(0)+"%3"+pro.get(1);
         StringRequest sr = new StringRequest(Request.Method.GET, recipe_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
