@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.recipe_search">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/recipedblogo"
@@ -9,7 +11,8 @@
         android:roundIcon="@drawable/recipedblogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Recipe_Search">
-        <activity android:name=".Ingredient_Categories"></activity>
+        <activity android:name=".Recipe_micro_nutrients"></activity>
+        <activity android:name=".Ingredient_Categories" />
         <activity android:name=".recipe_overview" />
         <activity android:name=".Recipe_process" />
         <activity android:name=".Recipe_instructions" />
