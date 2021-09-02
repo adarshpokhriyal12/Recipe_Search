@@ -53,19 +53,19 @@ public class MainActivity extends AppCompatActivity {
     ImageView iv;
     CardView cv1,cv2,cv3,cv4;
     // Recipe Of The Day
-
+    String title;
     TextView tvclose;
     TextView recipe_title;
     ImageView recipe_img;
+    JSONObject obj_rpd;
+
     // Volley credentials
     String uname = "nitika";
     String pass = "nitika_cosylab";
     String client_id = "app-ims";
     String grant_type = "password";
     String scope = "openid";
-
     String recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/recipeoftheday";
-
     String access_token;
 
 
@@ -176,9 +176,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         dialog.setCancelable(true);
         window.setLayout(ActionBar.LayoutParams.WRAP_CONTENT,ActionBar.LayoutParams.WRAP_CONTENT);
         dialog.show();
+    }
+    public void recipeOfDayCLick(View view) throws JSONException {
+        Intent i =  new Intent(MainActivity.this,Recipe_Details.class);
+        i.putExtra("Object",obj_rpd.toString());
+        startActivity(i);
+
     }
 
     // Recipe Of the Day : Volley
@@ -236,24 +243,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 try {
-                    JSONObject obj = new JSONObject(response);
-                    String title = obj.getString("recipe_title").toString();
+                    obj_rpd = new JSONObject(response);
+                    title = obj_rpd.getString("recipe_title").toString();
                     recipe_title.setText(title);
-                    //  Toast.makeText(MainActivity.this,title,Toast.LENGTH_SHORT).show();
                     Glide.with(MainActivity.this)
-                            .load(obj.getString("img_url").toString())
+                            .load(obj_rpd.getString("img_url").toString())
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(recipe_img);
-                   recipe_title.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v) {
-                           Intent i = new Intent(MainActivity.this,Recipe_Details.class);
-                           getRecipeInfo_day_recipe(access_token,title,i);
-
-                       }
-                   });
-                    //new DownloadImageFromInternet(recipe_img).execute(obj.getString("img_url").toString());
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -274,49 +270,7 @@ public class MainActivity extends AppCompatActivity {
         };
         r.add(sr);
     }
-    private void getRecipeInfo_day_recipe(String access_token, String title,Intent i) {
-        RequestQueue r = Volley.newRequestQueue(MainActivity.this);
-        //Toast.makeText(this,"In getRecipeInfo() : "+u+" "+nu,Toast.LENGTH_SHORT).show();
-        String recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?recipeTitle="+title;
-        StringRequest sr = new StringRequest(Request.Method.GET, recipe_url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray recs = new JSONArray(response);
-                    //Toast.makeText(MainActivity.this,"response :"+ recs.toString(),Toast.LENGTH_SHORT).show();
-                    JSONObject a = recs.getJSONObject(0);
-                    Bundle b = new Bundle();
-                    b.putString("Object",a.toString());
-                    i.putExtras(b);
-                    startActivity(i);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            public Map<String,String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("Authorization"," Bearer "+access_token);
-                //Toast.makeText(MainActivity.this,"Authorization :"+params.get("Authorization"),Toast.LENGTH_SHORT).show();
-//              new Handler(Looper.getMainLooper()).post(new Runnable() {
-//                  @Override
-//                  public void run() {
-//                      Toast toast = Toast.makeText(MainActivity.this, "Authorization :"+params.get("Authorization"), Toast.LENGTH_SHORT);
-//                      toast.show();
-//                  }
-//              });
-                return params;
-            }
-        };
-        r.add(sr);
-    }
 
     // cuisine search
     public void cuisineSearch(View view) {

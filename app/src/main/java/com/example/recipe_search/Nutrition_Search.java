@@ -201,7 +201,8 @@ public class Nutrition_Search extends AppCompatActivity {
     private void getRecipeInfo(String access_token, List fat,List pro,List carb,List eng,Intent i) {
         RequestQueue r = Volley.newRequestQueue(Nutrition_Search.this);
         //Toast.makeText(this,"In getRecipeInfo() : "+u+" "+nu,Toast.LENGTH_SHORT).show();
-        String recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?carbohydrates="+carb.get(0)+"%3"+carb.get(1)+"energy="+eng.get(0)+"%3"+eng.get(1)+"fat="+fat.get(0)+"%3"+fat.get(1)+"protein="+pro.get(0)+"%3"+pro.get(1);
+        //Toast.makeText(Nutrition_Search.this,"values:"+fat.get(0)+fat.get(1),Toast.LENGTH_SHORT).show();
+        String recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?carbohydrates="+carb.get(0)+"%3A"+carb.get(1)+"&energy="+eng.get(0)+"%3A"+eng.get(1)+"&fat="+fat.get(0)+"%3A"+fat.get(1)+"&protein="+pro.get(0)+"%3A"+pro.get(1);
         StringRequest sr = new StringRequest(Request.Method.GET, recipe_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
