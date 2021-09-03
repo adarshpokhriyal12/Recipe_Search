@@ -80,6 +80,14 @@ public class Recipe_Details extends AppCompatActivity{
 
     JSONObject object;
 
+    // Recipe Of The Day
+    String title;
+    TextView tvclose;
+    TextView recipe_title;
+    ImageView recipe_img;
+    JSONObject obj_rpd;
+    String recipe_url_rpd = "https://cosylab.iiitd.edu.in/api/recipeDB/recipeoftheday";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

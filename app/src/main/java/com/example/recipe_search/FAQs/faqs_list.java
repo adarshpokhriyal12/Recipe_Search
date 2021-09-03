@@ -16,20 +16,36 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.recipe_search.CONTACT_US.Contact_Us;
 import com.example.recipe_search.MainActivity;
 import com.example.recipe_search.R;
 import com.example.recipe_search.RecipeAdapter;
 import com.example.recipe_search.Recipe_Details;
 import com.example.recipe_search.Recipe_Searches;
+import com.example.recipe_search.recipe_utensils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class faqs_list extends AppCompatActivity {
 
@@ -40,6 +56,22 @@ public class faqs_list extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle toggle;
     private Dialog dialog;
+    // Recipe Of The Day
+    String title;
+    TextView tvclose;
+    TextView recipe_title;
+    ImageView recipe_img;
+    JSONObject obj_rpd;
+    String recipe_url_rpd = "https://cosylab.iiitd.edu.in/api/recipeDB/recipeoftheday";
+    //Token
+    //String url = "https://cosylab.iiitd.edu.in/api/auth/realms/bootadmin/protocol/openid-connect/token";
+    String uname = "nitika";
+    String pass = "nitika_cosylab";
+    String client_id = "app-ims";
+    String grant_type = "password";
+    String scope = "openid";
+    //String catUsed="",catNotUsed="";
+    //String access_token ="",refresh_token="";
 
 
     private  FaqAdapter.RecyclerViewClickListener listener;
@@ -216,9 +248,9 @@ public class faqs_list extends AppCompatActivity {
     // Pop Up : Recipe of the day
     public void showPop(View v) {
 
-        TextView tvclose;
-
+        getAccessToken();
         // Pop Up : Recipe of the Day
+
         dialog = new Dialog(this);
 
         dialog.setContentView(R.layout.popup);
@@ -229,6 +261,8 @@ public class faqs_list extends AppCompatActivity {
         window.getAttributes().windowAnimations = R.style.DialogAnimation;
 
         tvclose = (TextView) dialog.findViewById(R.id.tvclose);
+        recipe_title = (TextView)dialog.findViewById((R.id.recipe_title));
+        recipe_img = (ImageView)dialog.findViewById(R.id.recipe_img);
 
         tvclose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,8 +270,99 @@ public class faqs_list extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
+
         dialog.setCancelable(true);
         window.setLayout(ActionBar.LayoutParams.WRAP_CONTENT,ActionBar.LayoutParams.WRAP_CONTENT);
         dialog.show();
+    }
+    public void recipeOfDayCLick(View view) throws JSONException {
+        Intent i =  new Intent(faqs_list.this,Recipe_Details.class);
+        i.putExtra("Object",obj_rpd.toString());
+        startActivity(i);
+
+    }
+
+    // Recipe Of the Day : Volley
+    private void getAccessToken() {
+        RequestQueue rq;
+        rq = Volley.newRequestQueue(this);
+        String url = "https://cosylab.iiitd.edu.in/api/auth/realms/bootadmin/protocol/openid-connect/token";
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try{
+                    JSONObject obj = new JSONObject(response);
+                    //access_token = obj.getString("access_token");
+                    getRecipeOfTheDay(obj.getString("access_token").toString());
+                    //     Toast.makeText(MainActivity.this,"Access Token generated " + obj.getString("access_token").toString(),Toast.LENGTH_SHORT).show();
+                    //tv.setText(obj.getString("access_token"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(faqs_list.this,error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams()
+            {
+                Map<String,String> params = new HashMap<String,String>();
+                params.put("username",uname);
+                params.put("password",pass);
+                params.put("grant_type",grant_type);
+                params.put("client_id",client_id);
+                params.put("scope",scope);
+                return params;
+            }
+        };
+
+        rq.add(stringRequest);
+
+    }
+
+    // Recipe Of The Day
+
+    private void getRecipeOfTheDay(String token) {
+        RequestQueue r = Volley.newRequestQueue(faqs_list.this);
+        StringRequest sr = new StringRequest(Request.Method.GET, recipe_url_rpd, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    obj_rpd = new JSONObject(response);
+                    title = obj_rpd.getString("recipe_title").toString();
+                    recipe_title.setText(title);
+                    Glide.with(faqs_list.this)
+                            .load(obj_rpd.getString("img_url").toString())
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(recipe_img);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(faqs_list.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Authorization"," Bearer "+token);
+
+                return params;
+            }
+        };
+        r.add(sr);
     }
 }

@@ -29,6 +29,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.recipe_search.CONTACT_US.Contact_Us;
 import com.example.recipe_search.FAQs.faqs_list;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -51,6 +53,13 @@ public class Cuisine_Search extends AppCompatActivity {
     LinearLayout linearLayout;
 
     Animation anim1,anim2;
+    // Recipe Of The Day
+    String title_rd;
+    TextView tvclose;
+    TextView recipe_title;
+    ImageView recipe_img;
+    JSONObject obj_rpd;
+    String recipe_url_rpd = "https://cosylab.iiitd.edu.in/api/recipeDB/recipeoftheday";
     //Token
     String url = "https://cosylab.iiitd.edu.in/api/auth/realms/bootadmin/protocol/openid-connect/token";
     String uname = "nitika";
@@ -58,7 +67,7 @@ public class Cuisine_Search extends AppCompatActivity {
     String client_id = "app-ims";
     String grant_type = "password";
     String scope = "openid";
-    String region="",country="",recipe_title="";
+    String region="",country="",r_title="";
     String access_token ="",refresh_token="";
 
     @Override
@@ -182,50 +191,53 @@ public class Cuisine_Search extends AppCompatActivity {
     public void cuisineSearchSubmit(View view) {
         region = reg.getText().toString();
         country = count.getText().toString();
-        recipe_title = title.getText().toString();
+        r_title = title.getText().toString();
         //Toast.makeText(Ingredient_Search.this,"ing :"+ ingUsed +" " + ingNotUsed,Toast.LENGTH_SHORT).show();
         if (access_token == null)
             Toast.makeText(Cuisine_Search.this, "expire", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(this, Recipe_Searches.class);
-        getRecipeInfo(access_token, region, country,recipe_title, i);
+        getRecipeInfo(access_token, region, country,r_title, i);
     }
 
-    private void getRecipeInfo(String access_token, String region,String country,String recipe_title,Intent i) {
+    private void getRecipeInfo(String access_token, String region,String country,String r_title,Intent i) {
         RequestQueue r = Volley.newRequestQueue(Cuisine_Search.this);
         //Toast.makeText(this,"In getRecipeInfo() : "+u+" "+nu,Toast.LENGTH_SHORT).show();
         String recipe_url = "";
         if(region.equals(""))
         {
-            if(country.equals("") && recipe_title.equals(""))
+            if(country.equals("") && r_title.equals(""))
                 Toast.makeText(Cuisine_Search.this,"Please Enter Something",Toast.LENGTH_SHORT).show();
-            else if(country.equals("") && !recipe_title.equals(""))
-                recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?recipeTitle="+recipe_title;
-            else if(!country.equals("") && recipe_title.equals(""))
+            else if(country.equals("") && !r_title.equals(""))
+                recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?recipeTitle="+r_title;
+            else if(!country.equals("") && r_title.equals(""))
                 recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?country="+country;
             else
-                recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?country="+country+"recipeTitle="+recipe_title;
+                recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?country="+country+"recipeTitle="+r_title;
         }
         else
         {
-            if(country.equals("") && recipe_title.equals(""))
+            if(country.equals("") && r_title.equals(""))
                 recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?region="+region;
-            else if(country.equals("") && !recipe_title.equals(""))
-                recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?region="+region+"recipeTitle="+recipe_title;
-            else if(!country.equals("") && recipe_title.equals(""))
+            else if(country.equals("") && !r_title.equals(""))
+                recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?region="+region+"recipeTitle="+r_title;
+            else if(!country.equals("") && r_title.equals(""))
                 recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?region="+region+"country="+country;
             else
-                recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?region="+region+"country="+country+"recipeTitle="+recipe_title;
+                recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/searchrecipe?region="+region+"country="+country+"recipeTitle="+r_title;
         }
         StringRequest sr = new StringRequest(Request.Method.GET, recipe_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONArray recs = new JSONArray(response);
-                    Toast.makeText(Cuisine_Search.this,"response :"+ recs.toString(),Toast.LENGTH_SHORT).show();
-                    Bundle b = new Bundle();
+                    if(recs.length()==0)
+                        Toast.makeText(Cuisine_Search.this,"No Match",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Cuisine_Search.this,"response :"+ recs.toString(),Toast.LENGTH_SHORT).show();
+                    else{
+                        Bundle b = new Bundle();
                     b.putString("Array",recs.toString());
                     i.putExtras(b);
-                    startActivity(i);
+                    startActivity(i);}
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -256,7 +268,10 @@ public class Cuisine_Search extends AppCompatActivity {
     }
     // Pop Up : Recipe of the day
     public void showPop(View v) {
-        TextView tvclose;
+
+        getAccessToken();
+        // Pop Up : Recipe of the Day
+
         dialog = new Dialog(this);
 
         dialog.setContentView(R.layout.popup);
@@ -267,6 +282,8 @@ public class Cuisine_Search extends AppCompatActivity {
         window.getAttributes().windowAnimations = R.style.DialogAnimation;
 
         tvclose = (TextView) dialog.findViewById(R.id.tvclose);
+        recipe_title = (TextView)dialog.findViewById((R.id.recipe_title));
+        recipe_img = (ImageView)dialog.findViewById(R.id.recipe_img);
 
         tvclose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,9 +291,100 @@ public class Cuisine_Search extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
+
         dialog.setCancelable(true);
         window.setLayout(ActionBar.LayoutParams.WRAP_CONTENT,ActionBar.LayoutParams.WRAP_CONTENT);
         dialog.show();
+    }
+    public void recipeOfDayCLick(View view) throws JSONException {
+        Intent i =  new Intent(Cuisine_Search.this,Recipe_Details.class);
+        i.putExtra("Object",obj_rpd.toString());
+        startActivity(i);
+
+    }
+
+    // Recipe Of the Day : Volley
+    private void getAccessToken() {
+        RequestQueue rq;
+        rq = Volley.newRequestQueue(this);
+        String url = "https://cosylab.iiitd.edu.in/api/auth/realms/bootadmin/protocol/openid-connect/token";
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try{
+                    JSONObject obj = new JSONObject(response);
+                    //access_token = obj.getString("access_token");
+                    getRecipeOfTheDay(obj.getString("access_token").toString());
+                    //     Toast.makeText(MainActivity.this,"Access Token generated " + obj.getString("access_token").toString(),Toast.LENGTH_SHORT).show();
+                    //tv.setText(obj.getString("access_token"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Cuisine_Search.this,error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams()
+            {
+                Map<String,String> params = new HashMap<String,String>();
+                params.put("username",uname);
+                params.put("password",pass);
+                params.put("grant_type",grant_type);
+                params.put("client_id",client_id);
+                params.put("scope",scope);
+                return params;
+            }
+        };
+
+        rq.add(stringRequest);
+
+    }
+
+    // Recipe Of The Day
+
+    private void getRecipeOfTheDay(String token) {
+        RequestQueue r = Volley.newRequestQueue(Cuisine_Search.this);
+        StringRequest sr = new StringRequest(Request.Method.GET, recipe_url_rpd, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    obj_rpd = new JSONObject(response);
+                    title_rd = obj_rpd.getString("recipe_title").toString();
+                    recipe_title.setText(title_rd);
+                    Glide.with(Cuisine_Search.this)
+                            .load(obj_rpd.getString("img_url").toString())
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(recipe_img);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Cuisine_Search.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Authorization"," Bearer "+token);
+
+                return params;
+            }
+        };
+        r.add(sr);
     }
 
 }

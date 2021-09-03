@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     TextView recipe_title;
     ImageView recipe_img;
     JSONObject obj_rpd;
+    String recipe_url_rpd = "https://cosylab.iiitd.edu.in/api/recipeDB/recipeoftheday";
 
     // Volley credentials
     String uname = "nitika";
@@ -65,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     String client_id = "app-ims";
     String grant_type = "password";
     String scope = "openid";
-    String recipe_url = "https://cosylab.iiitd.edu.in/api/recipeDB/recipeoftheday";
     String access_token;
 
 
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getRecipeOfTheDay(String token) {
         RequestQueue r = Volley.newRequestQueue(MainActivity.this);
-        StringRequest sr = new StringRequest(Request.Method.GET, recipe_url, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.GET, recipe_url_rpd, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
