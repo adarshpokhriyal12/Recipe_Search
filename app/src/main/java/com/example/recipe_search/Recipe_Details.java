@@ -331,7 +331,7 @@ public class Recipe_Details extends AppCompatActivity{
                                     e.printStackTrace();
                                 }
                                 try {
-                                    time = time + "\n" + object.getString("prep_time") + " Minutes";
+                                    time = time + "\n" + "Preparation Time"+object.getString("prep_time") + " Minutes";
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

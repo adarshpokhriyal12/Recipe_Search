@@ -50,7 +50,7 @@ public class Recipe_process extends AppCompatActivity {
 
         iv.setAnimation(anim);
         Bundle b = getIntent().getExtras();
-        String res = b.getString("processes");
+        String res = b.getString("Process");
         String s="",f="";
         for(int i=0;i<res.length();i++)
         {

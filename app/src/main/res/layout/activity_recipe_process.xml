@@ -50,6 +50,7 @@
                     android:layout_gravity="left"
                     android:id="@+id/process"
                     android:fontFamily="cursive"
+                    android:paddingBottom="20dp"
                     android:text="details"
                     />
             </ScrollView>
